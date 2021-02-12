@@ -37,23 +37,24 @@ function App() {
           <div className="filter-balance">
             <div className="text">Поиск по балансу от</div>
             <input
-              className="input-balance"
+              className="input-balance-from"
               onChange={(event) => {
                 setBalMin(event.target.value);
               }}
             ></input>{' '}
             <small>до</small>
             <input
-              className="input-balance"
+              className="input-balance-to"
               onChange={(event) => {
                 setBalMax(event.target.value);
               }}
             ></input>
           </div>
           <div className="filter-email">
-            <div className="text">Найти по email</div>
+            <div className="text">Найти по email </div>
             <input
               className="input-email"
+              type="email"
               onChange={(event) => {
                 setSearchEmail(event.target.value);
               }}
@@ -61,7 +62,10 @@ function App() {
           </div>
           <div className="filter-activity">
             <div className="text">Поиск по активности</div>
-            <select onChange={(event) => setActivitySearch(event.target.value)}>
+            <select
+              className="input-activity"
+              onChange={(event) => setActivitySearch(event.target.value)}
+            >
               <option value="All">Все</option>
               <option value="true">Aктивен</option>
               <option value="false">Не активен</option>
