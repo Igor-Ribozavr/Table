@@ -1,8 +1,8 @@
 const express = require('express');
-const PORT = '4000';
-const app = express();
-const data = require('./data')
+const data = require('./data');
 const cors = require('cors');
+const app = express();
+const PORT = '4000';
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -13,10 +13,10 @@ app.use(
     origin: ['http://localhost:3000'],
     optionsSuccessStatus: 200,
   })
-); 
+);
 
 app.get('/', (req, res) => {
-  res.json(data);
+  res.status(200).json(data);
 });
 
 async function start() {

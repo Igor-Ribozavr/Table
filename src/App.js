@@ -9,28 +9,29 @@ function App() {
   const [details, setDetails] = useState([]);
   const [data, setData] = useState();
 
-  const toggleShawn = (userName) => {
+  const toggleShawn = (userId) => {
     const shownState = details.slice();
-    const index = shownState.indexOf(userName);
+    const index = shownState.indexOf(userId);
+
     if (index >= 0) {
       shownState.splice(index, 1);
       setDetails(shownState);
     } else {
-      shownState.push(userName);
+      shownState.push(userId);
       setDetails(shownState);
     }
   };
   useEffect(() => {
     async function fetchData() {
-      const result = await fetch('http://localhost:4000');
-      const response = await result.json();
-      setData(response);
+      const response = await fetch('http://localhost:4000');
+      const result = await response.json();
+      setData(result);
     }
     fetchData();
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="container-filters">
         <div className="container-filters-inner">
           <h1 className="header">Фильтры</h1>
@@ -41,7 +42,7 @@ function App() {
               onChange={(event) => {
                 setBalMin(event.target.value);
               }}
-            ></input>{' '}
+            ></input>
             <small>до</small>
             <input
               className="input-balance-to"
@@ -118,15 +119,15 @@ function App() {
                     return elem;
                   }
                 })
-                .filter((value) => {
+                .filter((elem) => {
                   if (searchEmail === '') {
-                    return value;
+                    return elem;
                   } else if (
-                    value.email
+                    elem.email
                       .toLocaleLowerCase()
-                      .includes(searchEmail.toLocaleLowerCase())
+                      .includes(searchEmail.toLowerCase())
                   ) {
-                    return value;
+                    return elem;
                   }
                 })
                 .filter((elem) => {
@@ -139,42 +140,40 @@ function App() {
                   }
                 })
                 .map((el) => (
-                  <>
-                    <React.Fragment key={el.id.toString()}>
-                      <tr
-                        className="row-main-information"
-                        onClick={() => toggleShawn(el.name)}
-                      >
-                        <td className="td-table-main">{el.name}</td>
-                        <td className="td-table-main">{el.balance}</td>
-                      </tr>
-                      {details.includes(el.name) && (
-                        <>
-                          <tr
-                            className={'row-additional-information'}
-                            onClick={() => toggleShawn(el.name)}
-                          >
-                            <td className="td-table-additional">Активность</td>
-                            <td className="td-table-additional">
-                              {el.isActive ? 'Активен' : 'Не активен'}
-                            </td>
-                          </tr>
-                          <tr
-                            className={'row-additional-information'}
-                            onClick={() => toggleShawn(el.name)}
-                          >
-                            <td className="td-table-additional">Email</td>
-                            <td className="td-table-additional">{el.email}</td>
-                          </tr>
-                        </>
-                      )}
-                    </React.Fragment>
-                  </>
+                  <React.Fragment key={el.id.toString()}>
+                    <tr
+                      className="row-main-information"
+                      onClick={() => toggleShawn(el.id)}
+                    >
+                      <td className="td-table-main">{el.name}</td>
+                      <td className="td-table-main">{el.balance}</td>
+                    </tr>
+                    {details.includes(el.id) && (
+                      <>
+                        <tr
+                          className={'row-additional-information'}
+                          onClick={() => toggleShawn(el.id)}
+                        >
+                          <td className="td-table-additional">Активность</td>
+                          <td className="td-table-additional">
+                            {el.isActive ? 'Активен' : 'Не активен'}
+                          </td>
+                        </tr>
+                        <tr
+                          className={'row-additional-information'}
+                          onClick={() => toggleShawn(el.id)}
+                        >
+                          <td className="td-table-additional">Email</td>
+                          <td className="td-table-additional">{el.email}</td>
+                        </tr>
+                      </>
+                    )}
+                  </React.Fragment>
                 ))}
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }
 

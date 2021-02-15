@@ -1,3 +1,14 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container {
+  width: 1170px;
+  margin: 0px auto;
+}
+
 .container-table {
   display: flex;
   justify-content: center;
@@ -75,7 +86,6 @@ small {
   width: 345px;
   height: 34px;
   border: 1px solid #c9cacc;
-  box-sizing: border-box;
   border-radius: 4px;
   font-size: 18px;
 }
@@ -83,7 +93,6 @@ small {
   width: 345px;
   height: 34px;
   border: 1px solid #c9cacc;
-  box-sizing: border-box;
   border-radius: 4px;
   font-size: 18px;
   background: rgb(236, 232, 232);
